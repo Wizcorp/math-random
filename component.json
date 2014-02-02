@@ -1,0 +1,9 @@
+{
+	"name": "random",
+	"repo": "Wizcorp/math-random",
+	"version": "0.1.0",
+	"scripts": [
+		"index.js"
+	],
+	"license": "MIT"
+}
