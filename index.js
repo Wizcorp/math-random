@@ -39,16 +39,18 @@ exports.randomize = function (toRandomize) {
  * @param {number} seed
  */
 
-exports.RandomNumberGenerator = function (seed) {
-	var s = seed;
+exports.randomNumberGenerator = function (seed) {
+	seed = (seed * 2147483647) % 2147483647;
+	if (seed < 0) {
+		seed = seed + 2147483647;
+	}
 
-	this.next = function () {
-		var hi = s / 44488.07041494893;
-		var lo = s % 44488.07041494893;
-		s = 48271 * lo - 3399 * hi;
-		if (s < 0) {
-			s = s + 2147483647;
+	return function () {
+		seed = (seed << 16) | (seed >> 16);
+		seed = 233280 * (seed % 9301) - 0.07041494 * seed + 3399;
+		if (seed < 0) {
+			seed = seed + 2147483647;
 		}
-		return (s / 2147483647);
+		return (seed / 2147483647);
 	};
-};
+}
